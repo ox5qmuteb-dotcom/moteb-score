@@ -1,0 +1,37 @@
+Company,Dimension,Score (0-10),Weight (%),Weighted Score,Notes
+Microsoft,Innovation,8,20,1.6,Strong research and development
+Microsoft,Execution,9,20,1.8,Reliable product delivery
+Microsoft,Stability,9,15,1.35,Enterprise-grade stability
+Microsoft,Community,8,10,0.8,Active open source community
+Microsoft,Impact,9,15,1.35,Broad industry influence
+Microsoft,Security,8,5,0.4,Strong security posture
+Microsoft,Global Reach,9,10,0.9,Worldwide presence
+Microsoft,Innovation Translation,8,10,0.8,Products reach market effectively
+Microsoft,Evolution Collaboration,8,10,0.8,Continuous improvement culture
+Google,Innovation,9,20,1.8,Cutting-edge research
+Google,Execution,8,20,1.6,Fast product development
+Google,Stability,8,15,1.2,Generally reliable systems
+Google,Community,8,10,0.8,Strong developer community
+Google,Impact,9,15,1.35,Massive market influence
+Google,Security,8,5,0.4,Solid security practices
+Google,Global Reach,9,10,0.9,Global infrastructure
+Google,Innovation Translation,8,10,0.8,Products used worldwide
+Google,Evolution Collaboration,8,10,0.8,Collaborative culture
+Meta,Innovation,8,20,1.6,AI and platform innovation
+Meta,Execution,8,20,1.6,Rapid product cycles
+Meta,Stability,7,15,1.05,Generally stable
+Meta,Community,7,10,0.7,Moderate community engagement
+Meta,Impact,8,15,1.2,Strong digital influence
+Meta,Security,7,5,0.35,Adequate security measures
+Meta,Global Reach,8,10,0.8,Worldwide user base
+Meta,Innovation Translation,8,10,0.8,Ideas reach users quickly
+Meta,Evolution Collaboration,7,10,0.7,Evolving open source practices
+Apple,Innovation,7,20,1.4,Strong product innovation
+Apple,Execution,9,20,1.8,Exceptional product delivery
+Apple,Stability,9,15,1.35,Highly stable products
+Apple,Community,6,10,0.6,Limited open developer community
+Apple,Impact,8,15,1.2,Significant market influence
+Apple,Security,9,5,0.45,Industry-leading security
+Apple,Global Reach,8,10,0.8,Worldwide user presence
+Apple,Innovation Translation,8,10,0.8,Products reach market well
+Apple,Evolution Collaboration,6,10,0.6,Limited collaborative culture
