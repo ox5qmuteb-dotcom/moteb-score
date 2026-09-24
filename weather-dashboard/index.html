@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moteb Weather Decision Prototype</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header-panel" role="banner">
+      <div class="title-row">
+        <div>
+          <h1 id="appTitle">Moteb Weather Decision Prototype | نموذج موتب للطقس واتخاذ القرار</h1>
+          <p class="subtitle" id="appSubtitle">Prototype-only risk insights; not a scientific predictive engine. | مؤشرات تقديرية فقط وليست تنبؤًا علميًا.</p>
+        </div>
+        <div>
+          <button id="langToggle" type="button" aria-label="Toggle language">AR / EN</button>
+        </div>
+      </div>
+
+      <form id="searchForm" novalidate>
+        <label for="cityInput" id="searchLabel">ابحث عن مدينة / Search city</label>
+        <div class="controls">
+          <input id="cityInput" name="city" type="text" autocomplete="off" maxlength="80" placeholder="الرياض / Riyadh" aria-describedby="searchHint">
+          <button id="searchBtn" type="submit">بحث / Search</button>
+          <button id="locateBtn" type="button" class="secondary">موقعي / My location</button>
+          <button id="refreshBtn" type="button" class="secondary">تحديث / Refresh</button>
+          <button id="unitBtn" type="button" class="secondary" aria-pressed="false">°C</button>
+        </div>
+        <small id="searchHint" class="subtitle">ادخل اسم مدينة بالحروف فقط. / Use letters, spaces, hyphen, apostrophe.</small>
+      </form>
+
+      <div id="suggestions" class="suggestions" role="listbox" aria-label="City suggestions" hidden></div>
+      <p id="status" class="status" aria-live="polite" data-type="info"></p>
+    </header>
+
+    <main id="dashboard" class="grid" hidden>
+      <section class="grid top-grid" aria-label="Current weather overview">
+        <article class="card" aria-labelledby="currentTitle">
+          <h2 id="currentTitle">الطقس الحالي / Current weather</h2>
+          <p id="locationLabel"></p>
+          <p id="currentTime" class="subtitle"></p>
+          <p class="current-temp" id="currentTemp">--</p>
+          <p id="currentText">--</p>
+        </article>
+
+        <article class="card" aria-labelledby="metricsTitle">
+          <h2 id="metricsTitle">المؤشرات الأساسية / Key metrics</h2>
+          <dl class="metrics">
+            <div class="metric"><dt id="lblFeelsLike">المحسوسة</dt><dd id="feelsLike">--</dd></div>
+            <div class="metric"><dt id="lblHumidity">الرطوبة</dt><dd id="humidity">--</dd></div>
+            <div class="metric"><dt id="lblWind">الرياح</dt><dd id="wind">--</dd></div>
+            <div class="metric"><dt id="lblPrecip">الهطول</dt><dd id="precip">--</dd></div>
+            <div class="metric"><dt id="lblPressure">الضغط</dt><dd id="pressure">--</dd></div>
+            <div class="metric"><dt id="lblUv">مؤشر UV</dt><dd id="uv">--</dd></div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="card" aria-labelledby="hourlyTitle">
+        <h2 id="hourlyTitle">الساعات القادمة / Next hours</h2>
+        <div id="hourlyRow" class="scroll-row"></div>
+      </section>
+
+      <section class="card" aria-labelledby="dailyTitle">
+        <h2 id="dailyTitle">7 أيام / 7-day forecast</h2>
+        <div id="dailyRow" class="scroll-row"></div>
+      </section>
+
+      <section class="card" aria-labelledby="prototypeTitle">
+        <h2 id="prototypeTitle">بطاقات المخاطر المستقبلية (Prototype / تقديري)</h2>
+        <p class="subtitle" id="prototypeIntro">هذه البطاقات إرشادية مبدئية مبنية على بيانات الطقس الحالية فقط، وليست تنبؤًا علميًا مؤكدًا.</p>
+        <div id="riskCards" class="prototype-grid"></div>
+      </section>
+    </main>
+
+    <footer class="footer-note">
+      <p id="footerText">Data: Open-Meteo Geocoding & Forecast APIs (no API key). | البيانات من Open-Meteo بدون مفتاح API.</p>
+    </footer>
+  </div>
+
+  <script src="./weather-utils.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
