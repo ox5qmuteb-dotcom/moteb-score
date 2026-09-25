@@ -29,6 +29,29 @@
     return input.trim().replace(/\s+/g, ' ');
   }
 
+  function isFiniteNumber(value) {
+    return typeof value === 'number' && Number.isFinite(value);
+  }
+
+  function roundCoordinate(value, precision) {
+    const digits = Number.isInteger(precision) ? Math.max(0, precision) : 2;
+    const factor = 10 ** digits;
+    return Math.round(value * factor) / factor;
+  }
+
+  function normalizeCoordinates(lat, lon, precision) {
+    if (!isFiniteNumber(lat) || !isFiniteNumber(lon)) {
+      return null;
+    }
+    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+      return null;
+    }
+    return {
+      lat: roundCoordinate(lat, precision),
+      lon: roundCoordinate(lon, precision)
+    };
+  }
+
   function toFahrenheit(celsius) {
     return (celsius * 9) / 5 + 32;
   }
@@ -84,6 +107,7 @@
   const api = {
     WMO_MAP,
     normalizeQuery,
+    normalizeCoordinates,
     toFahrenheit,
     convertTemperature,
     formatTemperature,

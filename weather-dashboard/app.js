@@ -1,5 +1,6 @@
 const {
   formatTemperature,
+  normalizeCoordinates,
   normalizeQuery,
   uvRiskLevel,
   validateWeatherPayload,
@@ -9,6 +10,14 @@ const {
 const API = {
   geocode: 'https://geocoding-api.open-meteo.com/v1/search',
   forecast: 'https://api.open-meteo.com/v1/forecast'
+};
+
+const FETCH_OPTIONS = {
+  method: 'GET',
+  mode: 'cors',
+  credentials: 'omit',
+  referrerPolicy: 'no-referrer',
+  cache: 'no-store'
 };
 
 const i18n = {
@@ -24,6 +33,7 @@ const i18n = {
     geoDenied: 'تم رفض الوصول إلى الموقع.',
     geoLoading: 'جارٍ تحديد موقعك...',
     invalidData: 'بيانات الطقس المستلمة غير مكتملة.',
+    invalidLocation: 'تعذّر استخدام هذا الموقع بسبب إحداثيات غير صالحة.',
     myLocation: 'موقعي الحالي',
     today: 'اليوم',
     labels: {
@@ -56,6 +66,7 @@ const i18n = {
     geoDenied: 'Location access was denied.',
     geoLoading: 'Detecting your location...',
     invalidData: 'Received incomplete weather payload.',
+    invalidLocation: 'Unable to use this location because the coordinates are invalid.',
     myLocation: 'My location',
     today: 'Today',
     labels: {
@@ -164,7 +175,7 @@ async function geocodeCity(cityName) {
     language: state.lang,
     format: 'json'
   });
-  const response = await fetch(`${API.geocode}?${params.toString()}`);
+  const response = await fetch(`${API.geocode}?${params.toString()}`, FETCH_OPTIONS);
   if (!response.ok) {
     throw new Error('geocode_failed');
   }
@@ -173,9 +184,13 @@ async function geocodeCity(cityName) {
 }
 
 async function fetchWeather(lat, lon) {
+  const safeCoords = normalizeCoordinates(lat, lon, 2);
+  if (!safeCoords) {
+    throw new Error('invalid_coordinates');
+  }
   const params = new URLSearchParams({
-    latitude: String(lat),
-    longitude: String(lon),
+    latitude: String(safeCoords.lat),
+    longitude: String(safeCoords.lon),
     current: 'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,surface_pressure,weather_code,wind_speed_10m',
     hourly: 'temperature_2m,weather_code,precipitation_probability',
     daily: 'weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_sum',
@@ -183,7 +198,7 @@ async function fetchWeather(lat, lon) {
     forecast_days: '7'
   });
 
-  const response = await fetch(`${API.forecast}?${params.toString()}`);
+  const response = await fetch(`${API.forecast}?${params.toString()}`, FETCH_OPTIONS);
   if (!response.ok) {
     throw new Error('forecast_failed');
   }
@@ -346,13 +361,18 @@ function setUnit(nextUnit) {
 
 async function loadWeatherForCoordinates(lat, lon, label, force) {
   const shouldForce = Boolean(force);
-  const key = `${lat.toFixed(3)},${lon.toFixed(3)}`;
+  const safeCoords = normalizeCoordinates(lat, lon, 2);
+  if (!safeCoords) {
+    setStatus(t().invalidLocation, 'error');
+    return;
+  }
+  const key = `${safeCoords.lat.toFixed(2)},${safeCoords.lon.toFixed(2)}`;
   if (state.requestKey === key) {
     return;
   }
   if (!shouldForce && state.latestCoords) {
-    const sameLat = Math.abs(state.latestCoords.lat - lat) < 0.001;
-    const sameLon = Math.abs(state.latestCoords.lon - lon) < 0.001;
+    const sameLat = Math.abs(state.latestCoords.lat - safeCoords.lat) < 0.0001;
+    const sameLon = Math.abs(state.latestCoords.lon - safeCoords.lon) < 0.0001;
     if (sameLat && sameLon && state.latestWeather) {
       renderWeather(state.latestWeather, label || state.latestLocationLabel);
       setStatus(t().cityLoaded, 'success');
@@ -364,14 +384,20 @@ async function loadWeatherForCoordinates(lat, lon, label, force) {
   setLoading(true);
   setStatus(t().loadingWeather);
   try {
-    const weather = await fetchWeather(lat, lon);
-    state.latestCoords = { lat, lon };
+    const weather = await fetchWeather(safeCoords.lat, safeCoords.lon);
+    state.latestCoords = { lat: safeCoords.lat, lon: safeCoords.lon };
     state.latestWeather = weather;
     state.latestLocationLabel = label;
     renderWeather(weather, label);
     setStatus(t().cityLoaded, 'success');
   } catch (error) {
-    setStatus(error.message === 'invalid_payload' ? t().invalidData : t().networkError, 'error');
+    if (error.message === 'invalid_payload') {
+      setStatus(t().invalidData, 'error');
+    } else if (error.message === 'invalid_coordinates') {
+      setStatus(t().invalidLocation, 'error');
+    } else {
+      setStatus(t().networkError, 'error');
+    }
   } finally {
     setLoading(false);
     state.requestKey = '';

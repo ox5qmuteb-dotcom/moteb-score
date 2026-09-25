@@ -5,6 +5,7 @@ const require = createRequire(import.meta.url);
 const {
   convertTemperature,
   formatTemperature,
+  normalizeCoordinates,
   validateWeatherPayload,
   wmoToDescriptor
 } = require('../weather-utils.js');
@@ -14,6 +15,8 @@ function run() {
   assert.equal(Math.round(convertTemperature(30, 'fahrenheit')), 86, '30C should equal 86F');
   assert.equal(formatTemperature(20, 'celsius'), '20°C');
   assert.equal(formatTemperature(20, 'fahrenheit'), '68°F');
+  assert.deepEqual(normalizeCoordinates(24.7136123, 46.6752978), { lat: 24.71, lon: 46.68 });
+  assert.equal(normalizeCoordinates(120, 46.6), null);
 
   const en = wmoToDescriptor(0, 'en');
   const ar = wmoToDescriptor(95, 'ar');
