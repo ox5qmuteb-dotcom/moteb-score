@@ -1,0 +1,33 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'weather-dashboard/**'
+      - '.github/workflows/pull-request-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-weather-dashboard:
+    name: Verify weather dashboard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Run weather dashboard verification
+        run: node weather-dashboard/tests/verify.mjs
