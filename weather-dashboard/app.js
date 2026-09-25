@@ -34,8 +34,8 @@ const i18n = {
       pressure: 'الضغط',
       uv: 'مؤشر UV'
     },
-    riskTitle: 'بطاقات المخاطر المستقبلية (Prototype / تقديري)',
-    riskIntro: 'هذه البطاقات إرشادية مبدئية مبنية على بيانات الطقس الحالية فقط، وليست تنبؤًا علميًا مؤكدًا.',
+    riskTitle: 'بطاقات مؤشرات المخاطر (Prototype / تقديري)',
+    riskIntro: 'هذه البطاقات مؤشرات أولية مبنية على بيانات الطقس الحالية فقط، وتُعرض لأغراض توضيحية وليست تنبؤًا علميًا.',
     riskCards: {
       heat: 'إجهاد حراري',
       rain: 'تعطل تنقّل محتمل',
@@ -66,8 +66,8 @@ const i18n = {
       pressure: 'Pressure',
       uv: 'UV Index'
     },
-    riskTitle: 'Future risk cards (Prototype / Estimation)',
-    riskIntro: 'These cards are directional prototype insights based on current weather only, not scientific forecasting.',
+    riskTitle: 'Risk indicator cards (Prototype / Estimation)',
+    riskIntro: 'These cards provide prototype-only indicators based on current weather conditions and are not scientific forecasts.',
     riskCards: {
       heat: 'Heat stress',
       rain: 'Mobility disruption risk',
@@ -309,11 +309,11 @@ function setLanguage(next) {
   const tr = t();
 
   els.appTitle.textContent = next === 'ar'
-    ? 'Moteb Weather Decision Prototype | نموذج موتب للطقس واتخاذ القرار'
-    : 'Moteb Weather Decision Prototype';
+    ? 'Moteb Weather Dashboard Prototype | نموذج موتب للوحة الطقس'
+    : 'Moteb Weather Dashboard Prototype';
   els.appSubtitle.textContent = next === 'ar'
-    ? 'Prototype-only risk insights; not a scientific predictive engine. | مؤشرات تقديرية فقط وليست تنبؤًا علميًا.'
-    : 'Prototype-only risk insights; not a scientific predictive engine.';
+    ? 'Prototype risk indicators only; they summarize current conditions and are not scientific forecasts. | مؤشرات مخاطر تقديرية فقط تلخّص الحالة الحالية وليست تنبؤات علمية.'
+    : 'Prototype risk indicators only; they summarize current conditions and are not scientific forecasts.';
   els.searchBtn.textContent = next === 'ar' ? 'بحث / Search' : 'Search';
   els.locateBtn.textContent = next === 'ar' ? 'موقعي / My location' : 'My location';
   els.refreshBtn.textContent = next === 'ar' ? 'تحديث / Refresh' : 'Refresh';

@@ -4,5 +4,5 @@ Moteb Score — Global Tech Civilization Measurement Framework | إطار موت
 ## Weather Dashboard Prototype
 
 - Path: `/home/runner/work/moteb-score/moteb-score/weather-dashboard/index.html`
-- Bilingual (Arabic/English) responsive weather dashboard using Open-Meteo APIs (no API key).
-- Includes current weather, hourly and 7-day forecast, geolocation, city suggestions, accessibility basics, and clearly labeled prototype future-risk cards.
+- Bilingual (Arabic/English) responsive weather dashboard powered by Open-Meteo APIs (no API key required).
+- Includes current conditions, an hourly view, a 7-day outlook, geolocation, city suggestions, basic accessibility support, and clearly labeled prototype risk-indicator cards.

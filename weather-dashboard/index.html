@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moteb Weather Decision Prototype</title>
+  <title>Moteb Weather Dashboard Prototype</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
     <header class="header-panel" role="banner">
       <div class="title-row">
         <div>
-          <h1 id="appTitle">Moteb Weather Decision Prototype | نموذج موتب للطقس واتخاذ القرار</h1>
-          <p class="subtitle" id="appSubtitle">Prototype-only risk insights; not a scientific predictive engine. | مؤشرات تقديرية فقط وليست تنبؤًا علميًا.</p>
+          <h1 id="appTitle">Moteb Weather Dashboard Prototype | نموذج موتب للوحة الطقس</h1>
+          <p class="subtitle" id="appSubtitle">Prototype risk indicators only; they summarize current conditions and are not scientific forecasts. | مؤشرات مخاطر تقديرية فقط تلخّص الحالة الحالية وليست تنبؤات علمية.</p>
         </div>
         <div>
           <button id="langToggle" type="button" aria-label="Toggle language">AR / EN</button>
@@ -64,13 +64,13 @@
       </section>
 
       <section class="card" aria-labelledby="dailyTitle">
-        <h2 id="dailyTitle">7 أيام / 7-day forecast</h2>
+        <h2 id="dailyTitle">توقع 7 أيام / 7-day forecast</h2>
         <div id="dailyRow" class="scroll-row"></div>
       </section>
 
       <section class="card" aria-labelledby="prototypeTitle">
-        <h2 id="prototypeTitle">بطاقات المخاطر المستقبلية (Prototype / تقديري)</h2>
-        <p class="subtitle" id="prototypeIntro">هذه البطاقات إرشادية مبدئية مبنية على بيانات الطقس الحالية فقط، وليست تنبؤًا علميًا مؤكدًا.</p>
+        <h2 id="prototypeTitle">بطاقات مؤشرات المخاطر (Prototype / تقديري)</h2>
+        <p class="subtitle" id="prototypeIntro">هذه البطاقات مؤشرات أولية مبنية على بيانات الطقس الحالية فقط، وتُعرض لأغراض توضيحية وليست تنبؤًا علميًا.</p>
         <div id="riskCards" class="prototype-grid"></div>
       </section>
     </main>
